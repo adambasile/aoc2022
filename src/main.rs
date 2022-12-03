@@ -16,11 +16,7 @@ struct Cli {
 
 fn main() {
     let args: Cli = Cli::parse();
-    let file = File::open(args.path).unwrap();
-    let lines: Vec<String> = BufReader::new(file)
-        .lines()
-        .filter_map(|result| result.ok())
-        .collect();
+    let lines = read_lines_from_file(args.path);
     let result: (i32, i32) = match args.day {
         1 => day01::day01(lines),
         2 => day02::day02(lines),
@@ -28,4 +24,13 @@ fn main() {
         _ => panic!()
     };
     println!("{:?}", result)
+}
+
+fn read_lines_from_file(path: PathBuf) -> Vec<String> {
+    let file = File::open(path).unwrap();
+    let lines: Vec<String> = BufReader::new(file)
+        .lines()
+        .filter_map(|result| result.ok())
+        .collect();
+    lines
 }
