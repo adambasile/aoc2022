@@ -6,6 +6,7 @@ use clap::Parser;
 
 mod day01;
 mod day02;
+mod day03;
 
 #[derive(Parser)]
 struct Cli {
@@ -20,6 +21,7 @@ fn main() {
     let result: (i32, i32) = match args.day {
         1 =>  day01::day01(lines),
         2 =>  day02::day02(lines),
+        3 =>  day03::day03(lines),
         _ => panic!()
     };
     println!("{:?}", result)
