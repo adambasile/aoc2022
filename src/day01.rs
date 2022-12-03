@@ -21,16 +21,26 @@ pub fn day01(lines: Vec<String>) -> (i32, i32) {
 #[cfg(test)]
 mod tests {
     use std::path::PathBuf;
+
     use crate::read_lines_from_file;
 
     use super::*;
 
     #[test]
-    fn test_day_one() {
+    fn test_day_one_small() {
         let filename = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("inputs")
             .join("day01test.txt");
         let lines = read_lines_from_file(filename);
         assert_eq!(day01(lines), (20, 44));
+    }
+
+    #[test]
+    fn test_day_one() {
+        let filename = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("inputs")
+            .join("day01.txt");
+        let lines = read_lines_from_file(filename);
+        assert_eq!(day01(lines), (69528, 206152));
     }
 }

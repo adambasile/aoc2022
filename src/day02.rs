@@ -77,3 +77,22 @@ fn get_score(ours: &RPS, opps: &RPS) -> i32 {
     };
     result_score + selected_score
 }
+
+
+#[cfg(test)]
+mod tests {
+    use std::path::PathBuf;
+
+    use crate::read_lines_from_file;
+
+    use super::*;
+
+    #[test]
+    fn test_day_two() {
+        let filename = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("inputs")
+            .join("day02.txt");
+        let lines = read_lines_from_file(filename);
+        assert_eq!(day02(lines), (14531, 11258));
+    }
+}
