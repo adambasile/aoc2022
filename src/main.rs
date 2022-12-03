@@ -4,8 +4,8 @@ use std::path::PathBuf;
 
 use clap::Parser;
 
-mod dayone;
-mod daytwo;
+mod day01;
+mod day02;
 
 #[derive(Parser)]
 struct Cli {
@@ -18,8 +18,8 @@ fn main() {
     let file = File::open(args.path).unwrap();
     let lines = BufReader::new(file).lines();
     let result: (i32, i32) = match args.day {
-        1 =>  dayone::day01(lines),
-        2 =>  daytwo::day02(lines),
+        1 =>  day01::day01(lines),
+        2 =>  day02::day02(lines),
         _ => panic!()
     };
     println!("{:?}", result)
