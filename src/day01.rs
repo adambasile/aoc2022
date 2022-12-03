@@ -27,7 +27,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_day_one_small() {
+    fn test_day_01_small() {
         let filename = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("inputs")
             .join("day01test.txt");
@@ -36,7 +36,7 @@ mod tests {
     }
 
     #[test]
-    fn test_day_one() {
+    fn test_day_01() {
         let filename = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("inputs")
             .join("day01.txt");
