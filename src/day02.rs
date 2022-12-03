@@ -1,5 +1,3 @@
-use std::io::{BufReader, Lines, Read};
-
 enum RPS {
     ROCK,
     PAPER,
@@ -16,6 +14,7 @@ impl From<char> for RPS {
         }
     }
 }
+
 impl From<i32> for RPS {
     fn from(i: i32) -> Self {
         match i.rem_euclid(3) {
@@ -48,10 +47,10 @@ impl RPS {
     }
 }
 
-pub fn day02<T: Read + Sized>(lines: Lines<BufReader<T>>) -> (i32, i32) {
+pub fn day02(lines: Vec<String>) -> (i32, i32) {
     let mut score_firstway = 0;
     let mut score_secondway = 0;
-    for line in lines.filter_map(|result| result.ok()) {
+    for line in lines {
         let opps: RPS = line.chars().nth(0).unwrap().into();
         let our_char = line.chars().nth(2).unwrap();
 

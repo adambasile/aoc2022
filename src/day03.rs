@@ -1,14 +1,10 @@
 use std::collections::HashSet;
-use std::fs::File;
-use std::io::{BufReader, Lines};
 
-pub fn day03(lines: Lines<BufReader<File>>) -> (i32, i32) {
+pub fn day03(lines: Vec<String>) -> (i32, i32) {
     let mut partone = 0;
     let mut parttwo = 0;
 
-    let linevec: Vec<String> = lines.filter_map(|result| result.ok()).collect();
-
-    for line in &linevec {
+    for line in &lines {
         let (leftstr, rightstr) = line.split_at(line.len() / 2);
         let leftset: HashSet<_> = HashSet::from_iter(leftstr.chars());
         let rightset: HashSet<_> = HashSet::from_iter(rightstr.chars());
@@ -18,7 +14,7 @@ pub fn day03(lines: Lines<BufReader<File>>) -> (i32, i32) {
         for c in common_item { partone += value(c) }
     }
 
-    for elfgroup in (&linevec).chunks(3) {
+    for elfgroup in (&lines).chunks(3) {
         let mut elfsets = elfgroup
             .into_iter()
             .map(|elf| elf.chars().collect::<HashSet<_>>());

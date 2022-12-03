@@ -17,11 +17,14 @@ struct Cli {
 fn main() {
     let args: Cli = Cli::parse();
     let file = File::open(args.path).unwrap();
-    let lines = BufReader::new(file).lines();
+    let lines: Vec<String> = BufReader::new(file)
+        .lines()
+        .filter_map(|result| result.ok())
+        .collect();
     let result: (i32, i32) = match args.day {
-        1 =>  day01::day01(lines),
-        2 =>  day02::day02(lines),
-        3 =>  day03::day03(lines),
+        1 => day01::day01(lines),
+        2 => day02::day02(lines),
+        3 => day03::day03(lines),
         _ => panic!()
     };
     println!("{:?}", result)

@@ -1,12 +1,9 @@
-use std::io::{BufReader, Lines, Read};
 use std::collections::binary_heap::BinaryHeap;
 
-pub fn day01<T: Read + Sized>(lines: Lines<BufReader<T>>) -> (i32, i32) {
+pub fn day01(lines: Vec<String>) -> (i32, i32) {
     // initialise with three empty elves so the unwraps below are always fine
     let mut elves = BinaryHeap::from([0, 0, 0]);
     lines
-        .filter_map(|result| result.ok())
-        .collect::<Vec<String>>()
         .split(|line| line == "")
         .map(|elf_lines| {
             elf_lines
@@ -26,6 +23,7 @@ mod tests {
     use std::fs::File;
     use std::io::BufRead;
     use std::path::PathBuf;
+
     use super::*;
 
     #[test]
