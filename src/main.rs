@@ -1,19 +1,23 @@
-use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-use std::path::Path;
+use std::path::PathBuf;
+
+use clap::Parser;
 
 mod dayone;
 mod daytwo;
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    let day: i32 = args[1].parse().unwrap();
-    let filepath = Path::new(&args[2]);
+#[derive(Parser)]
+struct Cli {
+    day: i32,
+    path: PathBuf,
+}
 
-    let file = File::open(filepath).unwrap();
+fn main() {
+    let args: Cli = Cli::parse();
+    let file = File::open(args.path).unwrap();
     let lines = BufReader::new(file).lines();
-    let result = match day {
+    let result = match args.day {
         1 => format!("{:?}", dayone::day01(lines)),
         2 => format!("{:?}", daytwo::day02(lines)),
         _ => panic!()
