@@ -17,10 +17,10 @@ fn main() {
     let args: Cli = Cli::parse();
     let file = File::open(args.path).unwrap();
     let lines = BufReader::new(file).lines();
-    let result = match args.day {
-        1 => format!("{:?}", dayone::day01(lines)),
-        2 => format!("{:?}", daytwo::day02(lines)),
+    let result: (i32, i32) = match args.day {
+        1 =>  dayone::day01(lines),
+        2 =>  daytwo::day02(lines),
         _ => panic!()
     };
-    println!("{}", result)
+    println!("{:?}", result)
 }
