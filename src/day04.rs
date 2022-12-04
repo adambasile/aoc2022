@@ -12,8 +12,8 @@ pub fn day04(lines: Vec<String>) -> (i32, i32) {
         let ass2 = &assgns[1];
         match ((ass1[0] <= ass2[0]) && (ass1[1] >= ass2[1])) ||
             ((ass1[0] >= ass2[0]) && (ass1[1] <= ass2[1])) {
-            true => { 1 }
-            false => { 0 }
+            true => 1,
+            false => 0
         }
     }).sum();
     let parttwo = (&assignments).into_iter().filter(|assgns| {
@@ -29,7 +29,6 @@ fn overlaps(starta: i32, enda: i32, startb: i32, endb: i32) -> bool {
     let first_end = enda.min(endb);
     last_start <= first_end
 }
-
 
 #[cfg(test)]
 mod tests {
