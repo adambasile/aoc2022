@@ -7,6 +7,7 @@ use clap::Parser;
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 #[derive(Parser)]
 struct Cli {
@@ -21,6 +22,7 @@ fn main() {
         1 => day01::day01(lines),
         2 => day02::day02(lines),
         3 => day03::day03(lines),
+        4 => day04::day04(lines),
         _ => panic!()
     };
     println!("{:?}", result)
