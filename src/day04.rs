@@ -4,7 +4,7 @@ pub fn day04(lines: Vec<String>) -> (i32, i32) {
         .map(|line| {
             line.split(",")
                 .map(|assignment| {
-                    assignment.split("-").map(|section| section.parse::<i32>().unwrap()).collect::<Vec<i32>>()
+                    assignment.split("-").map(|section| section.parse().unwrap()).collect::<Vec<i32>>()
                 }).collect::<Vec<Vec<i32>>>()
         }).collect::<Vec<Vec<Vec<i32>>>>();
     let partone: i32 = (&assignments).into_iter().map(|assgns| {
