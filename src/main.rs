@@ -8,6 +8,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 
 #[derive(Parser)]
 struct Cli {
@@ -18,14 +19,14 @@ struct Cli {
 fn main() {
     let args: Cli = Cli::parse();
     let lines = read_lines_from_file(args.path);
-    let result: (i32, i32) = match args.day {
-        1 => day01::day01(lines),
-        2 => day02::day02(lines),
-        3 => day03::day03(lines),
-        4 => day04::day04(lines),
+    match args.day {
+        1 => println!("{:?}", day01::day01(lines)),
+        2 => println!("{:?}", day02::day02(lines)),
+        3 => println!("{:?}", day03::day03(lines)),
+        4 => println!("{:?}", day04::day04(lines)),
+        5 => println!("{:?}", day05::day05(lines)),
         _ => panic!()
     };
-    println!("{:?}", result)
 }
 
 fn read_lines_from_file(path: PathBuf) -> Vec<String> {
