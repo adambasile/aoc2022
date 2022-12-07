@@ -10,6 +10,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 
 #[derive(Parser)]
 struct Cli {
@@ -27,7 +28,8 @@ fn main() {
         4 => println!("{:?}", day04::day04(lines)),
         5 => println!("{:?}", day05::day05(lines)),
         6 => println!("{:?}", day06::day06(lines)),
-        _ => panic!()
+        7 => println!("{:?}", day07::day07(lines)),
+        _ => panic!(),
     };
 }
 
