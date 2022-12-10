@@ -4,7 +4,7 @@ pub fn day01(lines: Vec<String>) -> (i32, i32) {
     // initialise with three empty elves so the unwraps below are always fine
     let mut elves = BinaryHeap::from([0, 0, 0]);
     lines
-        .split(|line| line == "")
+        .split(|line| line.is_empty())
         .map(|elf_lines| {
             elf_lines
                 .iter()

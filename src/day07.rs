@@ -28,7 +28,7 @@ impl Directory {
     fn size(&self, filesystem: &FileSystem, store: &mut HashMap<String, i32>) -> i32 {
         let file_sizes = self.files.iter().map(|file| file.size);
         let dir_sizes = self.directories.iter()
-            .map(|dir| filesystem.get(&dir).size(filesystem, store));
+            .map(|dir| filesystem.get(dir).size(filesystem, store));
         let size: i32 = file_sizes.chain(dir_sizes).sum();
         store.insert(self.path.clone(), size);
         size
@@ -118,7 +118,7 @@ fn change_dir(cwd: &mut String, dir: &str) {
             "/" => {} // already at root, can't go any further up
             _ => { // go to the parent
                 cwd.pop();
-                for _ in 0..((cwd.len() - cwd.rfind("/").unwrap()) - 1) {
+                for _ in 0..((cwd.len() - cwd.rfind('/').unwrap()) - 1) {
                     cwd.pop();
                 }
             }
@@ -149,7 +149,7 @@ impl FileSystem {
         let mut keys: Vec<_> = self.directories.keys().collect();
         keys.sort();
         for dir in keys {
-            let split: Vec<_> = dir.split("/").collect();
+            let split: Vec<_> = dir.split('/').collect();
             let idx = split.len() - 2;
             for _ in 0..idx { print!(" ") }
             let name = split.get(idx).unwrap();

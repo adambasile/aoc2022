@@ -7,7 +7,7 @@ pub fn day05(lines: Vec<String>) -> (String, String) {
     let num_stacks = lines[0].len() / 4 + 1;
     for _ in 0..(num_stacks) { stacks.push(VecDeque::new()) }
     // build up stacks
-    for line in (&lines).into_iter().filter(|line| line.contains("[")) {
+    for line in lines.iter().filter(|line| line.contains('[')) {
         for i in 0..num_stacks {
             let label = line.chars().nth(i * 4 + 1).unwrap();
             if label != ' ' { stacks.get_mut(i).unwrap().push_back(label) }
@@ -17,11 +17,11 @@ pub fn day05(lines: Vec<String>) -> (String, String) {
     let mut parttwo_stacks = stacks;
     // move things around
     let re = Regex::new(r"^move (\d+) from (\d+) to (\d+)$").unwrap();
-    for line in lines.into_iter().filter(|line| re.is_match(&line)) {
+    for line in lines.into_iter().filter(|line| re.is_match(line)) {
         let caps = re.captures(&line).unwrap();
-        let num_crates = (&caps[1]).parse::<usize>().unwrap();
-        let source = (&caps[2]).parse::<usize>().unwrap() - 1;
-        let dest = (&caps[3]).parse::<usize>().unwrap() - 1;
+        let num_crates = caps[1].parse::<usize>().unwrap();
+        let source = caps[2].parse::<usize>().unwrap() - 1;
+        let dest = caps[3].parse::<usize>().unwrap() - 1;
         // part one
         for _ in 0..num_crates {
             let crate_to_move = partone_stacks.get_mut(source).unwrap().pop_front().unwrap();

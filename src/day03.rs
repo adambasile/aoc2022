@@ -20,9 +20,9 @@ pub fn day03(lines: Vec<String>) -> (i32, i32) {
         for c in common_item { partone += priority(c) }
     }
 
-    for elfgroup in (&lines).chunks(3) {
+    for elfgroup in lines.chunks(3) {
         let mut elfsets = elfgroup
-            .into_iter()
+            .iter()
             .map(|elf| elf.chars().collect::<HashSet<_>>());
         let mut common = elfsets.next().unwrap();
         for elf in elfsets {

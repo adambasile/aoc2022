@@ -1,15 +1,15 @@
 enum RPS {
-    ROCK,
-    PAPER,
-    SCISSORS,
+    Rock,
+    Paper,
+    Scissors,
 }
 
 impl From<char> for RPS {
     fn from(c: char) -> Self {
         match c {
-            'A' | 'X' => RPS::ROCK,
-            'B' | 'Y' => RPS::PAPER,
-            'C' | 'Z' => RPS::SCISSORS,
+            'A' | 'X' => RPS::Rock,
+            'B' | 'Y' => RPS::Paper,
+            'C' | 'Z' => RPS::Scissors,
             _ => panic!()
         }
     }
@@ -18,9 +18,9 @@ impl From<char> for RPS {
 impl From<i32> for RPS {
     fn from(i: i32) -> Self {
         match i.rem_euclid(3) {
-            1 => RPS::ROCK,
-            2 => RPS::PAPER,
-            0 => RPS::SCISSORS,
+            1 => RPS::Rock,
+            2 => RPS::Paper,
+            0 => RPS::Scissors,
             _ => panic!()
         }
     }
@@ -29,9 +29,9 @@ impl From<i32> for RPS {
 impl RPS {
     fn value(&self) -> i32 {
         match *self {
-            RPS::ROCK => 1,
-            RPS::PAPER => 2,
-            RPS::SCISSORS => 3
+            RPS::Rock => 1,
+            RPS::Paper => 2,
+            RPS::Scissors => 3
         }
     }
 
@@ -51,7 +51,7 @@ pub fn day02(lines: Vec<String>) -> (i32, i32) {
     let mut score_firstway = 0;
     let mut score_secondway = 0;
     for line in lines {
-        let opps: RPS = line.chars().nth(0).unwrap().into();
+        let opps: RPS = line.chars().next().unwrap().into();
         let our_char = line.chars().nth(2).unwrap();
 
         score_firstway += get_score(&our_char.into(), &opps);

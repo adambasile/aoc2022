@@ -2,12 +2,12 @@ pub fn day04(lines: Vec<String>) -> (i32, i32) {
     let assignments = lines
         .into_iter()
         .map(|line| {
-            line.split(",")
+            line.split(',')
                 .map(|assignment| {
-                    assignment.split("-").map(|section| section.parse().unwrap()).collect::<Vec<i32>>()
+                    assignment.split('-').map(|section| section.parse().unwrap()).collect::<Vec<i32>>()
                 }).collect::<Vec<Vec<i32>>>()
         }).collect::<Vec<Vec<Vec<i32>>>>();
-    let partone: i32 = (&assignments).into_iter().map(|assgns| {
+    let partone: i32 = assignments.iter().map(|assgns| {
         let ass1 = &assgns[0];
         let ass2 = &assgns[1];
         match ((ass1[0] <= ass2[0]) && (ass1[1] >= ass2[1])) ||
@@ -16,7 +16,7 @@ pub fn day04(lines: Vec<String>) -> (i32, i32) {
             false => 0
         }
     }).sum();
-    let parttwo = (&assignments).into_iter().filter(|assgns| {
+    let parttwo = assignments.iter().filter(|assgns| {
         let ass1 = &assgns[0];
         let ass2 = &assgns[1];
         overlaps(ass1[0], ass1[1], ass2[0], ass2[1])
