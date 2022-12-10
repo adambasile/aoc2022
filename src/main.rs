@@ -13,6 +13,7 @@ mod day06;
 mod day07;
 mod day08;
 mod day09;
+mod day10;
 
 #[derive(Parser)]
 struct Cli {
@@ -33,6 +34,10 @@ fn main() {
         7 => println!("{:?}", day07::day07(lines)),
         8 => println!("{:?}", day08::day08(lines)),
         9 => println!("{:?}", day09::day09(lines)),
+        10 => {
+            let (partone, parttwo) = day10::day10(lines);
+            println!("{:?}\n{}", partone, parttwo)
+        }
         _ => panic!(),
     };
 }
