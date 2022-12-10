@@ -27,7 +27,9 @@ impl Directory {
 
     fn size(&self, filesystem: &FileSystem, store: &mut HashMap<String, i32>) -> i32 {
         let file_sizes = self.files.iter().map(|file| file.size);
-        let dir_sizes = self.directories.iter()
+        let dir_sizes = self
+            .directories
+            .iter()
             .map(|dir| filesystem.get(dir).size(filesystem, store));
         let size: i32 = file_sizes.chain(dir_sizes).sum();
         store.insert(self.path.clone(), size);
@@ -110,13 +112,15 @@ impl FileSystem {
 
 fn change_dir(cwd: &mut String, dir: &str) {
     match dir {
-        "/" => { // go root yourself
+        "/" => {
+            // go root yourself
             cwd.clear();
             cwd.push('/')
         }
         ".." => match cwd.as_str() {
             "/" => {} // already at root, can't go any further up
-            _ => { // go to the parent
+            _ => {
+                // go to the parent
                 cwd.pop();
                 for _ in 0..((cwd.len() - cwd.rfind('/').unwrap()) - 1) {
                     cwd.pop();
@@ -139,7 +143,11 @@ pub fn day07(lines: Vec<String>) -> (i32, i32) {
     let total_capacity = 70000000;
     let desired_space = 30000000;
     let min_to_delete = used_space - (total_capacity - desired_space);
-    let parttwo = *size_store.values().filter(|size| size >= &&min_to_delete).min().unwrap();
+    let parttwo = *size_store
+        .values()
+        .filter(|size| size >= &&min_to_delete)
+        .min()
+        .unwrap();
     (partone, parttwo)
 }
 
@@ -151,11 +159,15 @@ impl FileSystem {
         for dir in keys {
             let split: Vec<_> = dir.split('/').collect();
             let idx = split.len() - 2;
-            for _ in 0..idx { print!(" ") }
+            for _ in 0..idx {
+                print!(" ")
+            }
             let name = split.get(idx).unwrap();
             println!("- {}/ (dir)", name);
             for file in &self.get(dir).files {
-                for _ in 0..(idx + 1) { print!(" ") }
+                for _ in 0..(idx + 1) {
+                    print!(" ")
+                }
                 println!("- {} (file, size={})", file.name, file.size)
             }
         }

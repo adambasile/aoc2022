@@ -10,7 +10,7 @@ impl From<char> for RPS {
             'A' | 'X' => RPS::Rock,
             'B' | 'Y' => RPS::Paper,
             'C' | 'Z' => RPS::Scissors,
-            _ => panic!()
+            _ => panic!(),
         }
     }
 }
@@ -21,7 +21,7 @@ impl From<i32> for RPS {
             1 => RPS::Rock,
             2 => RPS::Paper,
             0 => RPS::Scissors,
-            _ => panic!()
+            _ => panic!(),
         }
     }
 }
@@ -31,7 +31,7 @@ impl RPS {
         match *self {
             RPS::Rock => 1,
             RPS::Paper => 2,
-            RPS::Scissors => 3
+            RPS::Scissors => 3,
         }
     }
 
@@ -59,7 +59,7 @@ pub fn day02(lines: Vec<String>) -> (i32, i32) {
             'X' => opps.beats(),
             'Y' => opps.draws(),
             'Z' => opps.loses(),
-            _ => panic!()
+            _ => panic!(),
         };
         score_secondway += get_score(&ours, &opps)
     }
@@ -73,11 +73,10 @@ fn get_score(ours: &RPS, opps: &RPS) -> i32 {
         2 => 0, // loss
         0 => 3, // draw
         1 => 6, // win
-        _ => panic!()
+        _ => panic!(),
     };
     result_score + selected_score
 }
-
 
 #[cfg(test)]
 mod tests {

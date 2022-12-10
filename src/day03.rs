@@ -16,8 +16,12 @@ pub fn day03(lines: Vec<String>) -> (i32, i32) {
         let leftset: HashSet<_> = HashSet::from_iter(leftstr.chars());
         let rightset: HashSet<_> = HashSet::from_iter(rightstr.chars());
         let common_item: Vec<&char> = leftset.intersection(&rightset).collect();
-        if common_item.len() != 1 { panic!() }
-        for c in common_item { partone += priority(c) }
+        if common_item.len() != 1 {
+            panic!()
+        }
+        for c in common_item {
+            partone += priority(c)
+        }
     }
 
     for elfgroup in lines.chunks(3) {
@@ -28,12 +32,15 @@ pub fn day03(lines: Vec<String>) -> (i32, i32) {
         for elf in elfsets {
             common = common.intersection(&elf).copied().collect();
         }
-        if common.len() != 1 { panic!() }
-        for c in common { parttwo += priority(&c) }
+        if common.len() != 1 {
+            panic!()
+        }
+        for c in common {
+            parttwo += priority(&c)
+        }
     }
     (partone, parttwo)
 }
-
 
 #[cfg(test)]
 mod tests {

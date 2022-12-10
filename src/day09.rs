@@ -56,7 +56,8 @@ fn visited_by_tail(lines: &Vec<String>, rope_length: i32) -> i32 {
 
 fn shorten_rope(head: &Point, tail: &mut Point) {
     let diff = Point::new(head.x - tail.x, head.y - tail.y);
-    if diff.x.abs() <= 1 && diff.y.abs() <= 1 {} else if diff.x.abs() == diff.y.abs() {
+    if diff.x.abs() <= 1 && diff.y.abs() <= 1 {
+    } else if diff.x.abs() == diff.y.abs() {
         tail.set(head.x - diff.x.signum(), head.y - diff.y.signum());
     } else if diff.x.abs() > diff.y.abs() {
         tail.set(head.x - diff.x.signum(), head.y)

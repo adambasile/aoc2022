@@ -5,12 +5,16 @@ use regex::Regex;
 pub fn day05(lines: Vec<String>) -> (String, String) {
     let mut stacks = Vec::<VecDeque<char>>::new();
     let num_stacks = lines[0].len() / 4 + 1;
-    for _ in 0..(num_stacks) { stacks.push(VecDeque::new()) }
+    for _ in 0..(num_stacks) {
+        stacks.push(VecDeque::new())
+    }
     // build up stacks
     for line in lines.iter().filter(|line| line.contains('[')) {
         for i in 0..num_stacks {
             let label = line.chars().nth(i * 4 + 1).unwrap();
-            if label != ' ' { stacks.get_mut(i).unwrap().push_back(label) }
+            if label != ' ' {
+                stacks.get_mut(i).unwrap().push_back(label)
+            }
         }
     }
     let mut partone_stacks = stacks.clone();
@@ -25,7 +29,10 @@ pub fn day05(lines: Vec<String>) -> (String, String) {
         // part one
         for _ in 0..num_crates {
             let crate_to_move = partone_stacks.get_mut(source).unwrap().pop_front().unwrap();
-            partone_stacks.get_mut(dest).unwrap().push_front(crate_to_move)
+            partone_stacks
+                .get_mut(dest)
+                .unwrap()
+                .push_front(crate_to_move)
         }
         // part two
         let mut crates_to_move = Vec::new();
@@ -33,7 +40,10 @@ pub fn day05(lines: Vec<String>) -> (String, String) {
             crates_to_move.push(parttwo_stacks.get_mut(source).unwrap().pop_front().unwrap())
         }
         while !crates_to_move.is_empty() {
-            parttwo_stacks.get_mut(dest).unwrap().push_front(crates_to_move.pop().unwrap())
+            parttwo_stacks
+                .get_mut(dest)
+                .unwrap()
+                .push_front(crates_to_move.pop().unwrap())
         }
     }
     (top_crates(&partone_stacks), top_crates(&parttwo_stacks))
@@ -41,7 +51,9 @@ pub fn day05(lines: Vec<String>) -> (String, String) {
 
 fn top_crates(stacks: &Vec<VecDeque<char>>) -> String {
     let mut out = String::new();
-    for stack in stacks { out.push(*stack.get(0).unwrap()) }
+    for stack in stacks {
+        out.push(*stack.get(0).unwrap())
+    }
     out
 }
 

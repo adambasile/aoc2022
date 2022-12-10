@@ -16,7 +16,8 @@ fn parse_trees(lines: Vec<String>) -> Vec<Vec<(usize, usize, i32)>> {
                 .enumerate()
                 .map(|(j, height)| (i, j, height.to_digit(10).unwrap() as i32))
                 .collect()
-        }).collect()
+        })
+        .collect()
 }
 
 fn partone(trees: &[Vec<(usize, usize, i32)>]) -> i32 {
@@ -43,7 +44,8 @@ fn partone(trees: &[Vec<(usize, usize, i32)>]) -> i32 {
 }
 
 fn get_visible_trees<'a, T>(line_of_trees_iter: T) -> Vec<(usize, usize)>
-    where T: Iterator<Item=&'a (usize, usize, i32)>
+where
+    T: Iterator<Item = &'a (usize, usize, i32)>,
 {
     let mut highest_height = -1;
     line_of_trees_iter
@@ -70,7 +72,8 @@ fn parttwo(trees: &Vec<Vec<(usize, usize, i32)>>) -> i32 {
                     .product()
             })
         })
-        .max().unwrap()
+        .max()
+        .unwrap()
 }
 
 fn get_lines_of_trees_from_tree(
@@ -86,12 +89,19 @@ fn get_lines_of_trees_from_tree(
     let (top_line, bottom_line) = trees_column.split_at(tree_i);
     let mut top_line: Vec<_> = top_line.into();
     top_line.reverse();
-    [left_line, right_line[1..].into(), top_line, bottom_line[1..].into()]
+    [
+        left_line,
+        right_line[1..].into(),
+        top_line,
+        bottom_line[1..].into(),
+    ]
 }
 
 fn get_visible_trees_from_tree(tree_height: &i32, line_of_trees: Vec<(usize, usize, i32)>) -> i32 {
     for (i, (_, _, height)) in line_of_trees.iter().enumerate() {
-        if height >= tree_height { return (i + 1) as i32; }
+        if height >= tree_height {
+            return (i + 1) as i32;
+        }
     }
     line_of_trees.len() as i32
 }

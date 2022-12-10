@@ -6,7 +6,11 @@ pub fn day06(lines: Vec<String>) -> (usize, usize) {
 }
 
 fn find_message_start(message: &str, packet_length: usize) -> usize {
-    'packets: for (i, packet) in message.chars().collect::<Vec<_>>().windows(packet_length).enumerate()
+    'packets: for (i, packet) in message
+        .chars()
+        .collect::<Vec<_>>()
+        .windows(packet_length)
+        .enumerate()
     {
         let mut sorted: Vec<char> = packet.into();
         sorted.sort();
