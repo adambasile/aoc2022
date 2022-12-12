@@ -49,7 +49,7 @@ impl Heightmap {
                             .map(|c| ((m, n), char_to_height(c))),
                         None => None,
                     })
-                    .filter(|(_, h)| (h - height) <= 1)
+                    .filter(|(_, h)| (height - h) <= 1)
                     .map(|((posx, posy), _)| out.pos_to_name(posx, posy))
                     .collect()
                 })
@@ -105,8 +105,8 @@ fn char_to_height(c: char) -> i32 {
 
 pub fn day12(lines: Vec<String>) -> (i32, i32) {
     let heightmap = Heightmap::new(&lines);
-    let (cost, previous) = bfs(&heightmap.adjacency_list, heightmap.start);
-    let dayone = dayone(&heightmap, previous);
+    let (cost, next) = bfs(&heightmap.adjacency_list, heightmap.end);
+    let dayone = dayone(&heightmap, next);
     let daytwo = lines
         .iter()
         .enumerate()
@@ -120,27 +120,14 @@ pub fn day12(lines: Vec<String>) -> (i32, i32) {
         .map(|pos| cost[pos])
         .min()
         .unwrap() as i32;
-
-    let hm: Vec<_> = lines
-        .iter()
-        .enumerate()
-        .flat_map(|(i, line)| {
-            let heightmap = &heightmap;
-            line.chars()
-                .enumerate()
-                .filter(|(_, c)| *c == 'a')
-                .map(move |(j, _)| (i, j))
-        })
-        .collect();
-    println!("{:?}", hm);
     (dayone, daytwo)
 }
 
-fn dayone(heightmap: &Heightmap, previous: Vec<Option<usize>>) -> i32 {
+fn dayone(heightmap: &Heightmap, next: Vec<Option<usize>>) -> i32 {
     let mut dayone = 0;
-    let mut current = heightmap.end;
+    let mut current = heightmap.start;
     loop {
-        current = match previous[current] {
+        current = match next[current] {
             Some(val) => val,
             None => break,
         };
@@ -164,12 +151,12 @@ fn find_start_end(lines: &[String], heightmap: Heightmap) -> (usize, usize) {
     }
     (start.unwrap(), end.unwrap())
 }
-fn bfs(adjacency_list: &Vec<Vec<usize>>, source: usize) -> (Vec<i32>, Vec<Option<usize>>) {
+fn bfs(adjacency_list: &Vec<Vec<usize>>, dest: usize) -> (Vec<i32>, Vec<Option<usize>>) {
     let mut cost: Vec<_> = (0..adjacency_list.len()).map(|_| i32::MAX).collect();
     let mut prev: Vec<Option<usize>> = (0..adjacency_list.len()).map(|_| None).collect();
     let mut queue: BinaryHeap<(Reverse<i32>, usize)> = BinaryHeap::new();
-    cost[source] = 0;
-    queue.push((Reverse(0), source));
+    cost[dest] = 0;
+    queue.push((Reverse(0), dest));
     while let Some((Reverse(base_cost), vertex)) = queue.pop() {
         if base_cost > cost[vertex] {
             continue;
@@ -200,7 +187,7 @@ mod tests {
             .join("inputs")
             .join("day12.txt");
         let lines = read_lines_from_file(filename);
-        assert_eq!(day12(lines), (0, 0));
+        assert_eq!(day12(lines), (449, 443));
     }
     #[test]
     fn test_day_12_small() {
