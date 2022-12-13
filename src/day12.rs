@@ -1,5 +1,5 @@
 use std::cmp::Reverse;
-use std::collections::BinaryHeap;
+use std::collections::binary_heap::BinaryHeap;
 
 struct Heightmap {
     width: usize,
