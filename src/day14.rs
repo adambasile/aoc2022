@@ -18,8 +18,9 @@ fn drop_sand(
     let open = |x, y, placed_sand: &HashSet<(usize, usize)>| {
         y < floor && !(rocks.contains(&(x, y)) || placed_sand.contains(&(x, y)))
     };
-    let (mut x, mut y) = sand_start;
-    loop {
+    let mut sandstream = vec![sand_start];
+    while let Some(pos) = sandstream.pop() {
+        let (mut x, mut y) = pos;
         if y + 1 == floor && !simulate_floor {
             break;
         }
@@ -30,12 +31,11 @@ fn drop_sand(
         } else if open(x + 1, y + 1, &placed_sand) {
             (x, y) = (x + 1, y + 1);
         } else {
-            placed_sand.insert((x, y));
-            if sand_start == (x, y) {
-                break;
-            }
-            (x, y) = sand_start;
+            placed_sand.insert(pos);
+            continue;
         }
+        sandstream.push(pos);
+        sandstream.push((x, y))
     }
     placed_sand
 }
@@ -53,9 +53,7 @@ fn parse_rocks(lines: Vec<String>) -> HashSet<(usize, usize)> {
                 (pair[0], pair[1])
             })
             .collect();
-        let mut parsed = parsed.iter();
-        let (mut ix, mut iy) = parsed.next().unwrap();
-        for &(jx, jy) in parsed {
+        for (&(ix, iy), &(jx, jy)) in parsed.iter().zip(parsed[1..].iter()) {
             let (ix_sort, jx_sort) = if ix <= jx { (ix, jx) } else { (jx, ix) };
             let (iy_sort, jy_sort) = if iy <= jy { (iy, jy) } else { (jy, iy) };
             for x in (ix_sort)..=jx_sort {
@@ -63,7 +61,6 @@ fn parse_rocks(lines: Vec<String>) -> HashSet<(usize, usize)> {
                     rocks.insert((x, y));
                 }
             }
-            (ix, iy) = (jx, jy);
         }
     }
     rocks
